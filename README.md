@@ -1,11 +1,14 @@
-# data-skills-03
+# data-skills-04
 
 ## Session Overview
 
 ### Objectives
 At the end of this lesson, participants should be able to:
 
-1.
+1. Adjust color ramps using `viridis` as well as `RColorBrewer`
+2. Update the theme using `ggplot2` and `ggthemes`
+3. Move the legend, which provides an introduction to the `theme()` function
+4. Add facets
 
 ### Lesson Resources
 * The [`SETUP.md`](SETUP.md) file contains a list of packages required for this lesson
@@ -38,13 +41,13 @@ By using `usethis::use_course`, all of the lesson materials will be downloaded t
 In addition to `usethis`, there are a couple of other packages we'll need:
 
 ```r
-install.packages(c("tidyverse", "here", "janitor", "palmerpenguins", "ggthemes", "viridis", "knitr", "rmarkdown"))
+install.packages(c("tidyverse", "here", "janitor", "palmerpenguins", "ggthemes", "knitr", "rmarkdown"))
 ```
 
 If you've already installed packages from prior data skills sessions, you should only need:
 
 ```r
-install.packages(c("ggthemes", "viridis"))
+install.packages("ggthemes")
 ```
 
 Now we're ready to go!
