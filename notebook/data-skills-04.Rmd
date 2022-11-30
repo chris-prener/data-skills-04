@@ -1,0 +1,123 @@
+---
+title: "Data Skills 04 - Design Features with ggplot2"
+author: "Christopher Prener, Ph.D."
+date: '(`r format(Sys.time(), "%B %d, %Y")`)'
+output:
+  github_document: default
+  html_notebook: default
+---
+
+## Dependencies
+This notebook requires two packages from the `tidyverse` as well as two additional packages:
+
+```{r load-packages}
+# tidyverse packages
+library(dplyr)     # data wrangling
+library(ggplot2)   # read and write csv files
+library(ggthemes)  # additional ggplot2 themes
+
+# manage file paths
+library(here)      # manage file paths
+```
+
+## Load Data
+For today's session, we'll use the `penguins` data in the `palmerpenguins` package.
+
+```{r}
+penguins <- palmerpenguins::penguins
+```
+
+## Reviewing Our Last Plot
+This is our code from last week. We'll start by reviewing some of the basic elements of `ggplot2`!
+
+```{r}
+p <- ggplot(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm,
+                                      color = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x) +
+  scale_x_continuous(limits = c(30, 60), breaks = seq(30, 60, by = 5)) +
+  scale_y_continuous(limits = c(12, 22), breaks = seq(12, 22, by = 2)) + 
+  scale_color_brewer(palette = "Dark2", name = "Species") +
+  labs(
+    title = "Penguin Bill Size",
+    subtitle = "Multiple Islands",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    caption = "Plot by Chris Prener"
+  )
+
+p
+```
+
+Now that we've finalized our plot, we can save it using `ggsave()`:
+
+```{r}
+ggsave(filename = here("results", "bill_length_depth.png"), plot = p)
+```
+
+## Adding More Design Elements
+Instead of re-typing our code over and over again today, we'll use the following code to iterate on our plot. We'll work to add the following:
+
+1. change the colors using the `viridis` palette
+  * [`ggplot2` documentation for `viridis`](https://ggplot2.tidyverse.org/reference/scale_viridis.html)
+2. change the theme using both `ggplot2` themes and the `ggthemes` package
+  * [`ggplot2` themes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+  * [`ggthemes` themes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
+3. move the position of the legend
+4. add facets
+
+```{r}
+p <- ggplot(data = penguins, mapping = aes(x = bill_length_mm, y = bill_depth_mm,
+                                      color = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x) +
+  scale_x_continuous(limits = c(30, 60), breaks = seq(30, 60, by = 5)) +
+  scale_y_continuous(limits = c(12, 22), breaks = seq(12, 22, by = 2)) + 
+  scale_color_brewer(palette = "Dark2", name = "Species") +
+  labs(
+    title = "Penguin Bill Size",
+    subtitle = "Multiple Islands",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    caption = "Plot by Chris Prener"
+  )
+
+p
+```
+
+Now that we've finalized our plot, we can save it using `ggsave()`:
+
+```{r}
+ggsave(filename = here("results", "bill_length_depth_new.png"), plot = p)
+```
+
+## Experimentation
+Now, you try adjusting the plot above to fit new data, comparing `flipper_length_mm` and `body_mass_g`. Save your plot when you're done!
+
+```{r}
+p <- ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g,
+                                      color = species)) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1", name = "Species") +
+  scale_x_continuous(
+    limits = c(170, 240), 
+    breaks = seq(170, 240, by = 10)
+  ) +
+  scale_y_continuous(
+    limits = c(2500, 6500), 
+    breaks = seq(2500, 6500, by = 500)
+  ) +
+  labs(
+    title = "Body Mass and Flipper Length by Species",
+    x = "Flipper Length (mm)",
+    y = "Body Mass (g)"
+  )
+
+p
+```
+
+Now that we've finalized our plot, we can save it using `ggsave()`:
+
+```{r}
+ggsave(filename = here("results", "flipper_mass.png"), plot = p)
+```
